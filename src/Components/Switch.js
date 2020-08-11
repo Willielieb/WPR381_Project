@@ -1,9 +1,6 @@
 import Toggle from '@material-ui/core/Switch';
-import Grid from '@material-ui/core/Grid';
 import React from "react";
 import Condition from './conditions'
-import WeatherImg from './WeatherPicture';
-
 
 function ToggleSwitch() {
     const [state, setState] = React.useState({
@@ -15,18 +12,7 @@ function ToggleSwitch() {
     return (
         <>
             <div className="switch" >
-                <Grid component="label" container alignItems="center" spacing={0}>
-                    <Grid item>°F</Grid>
-                    <Grid item>
-                        <Toggle
-                            checked={state.checked}
-                            onChange={handleChange}
-                            name="checked"
-                            color="primary"
-                        />
-                    </Grid>
-                    <Grid item>°C</Grid>
-                </Grid>
+                <span>°F<Toggle checked={state.checked} onChange={handleChange} name="checked" color="primary" />°C</span>
             </div>
             <div className="inner-box">
                 <Condition checked={state.checked} />

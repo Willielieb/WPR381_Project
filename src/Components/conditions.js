@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import WeatherPicture from './WeatherPicture';
 class Conditions extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checked: true
-        }
-    }
     render() {
         var condition = 'rainny';
         var conditiondescription = 'light rain';

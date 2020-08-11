@@ -7,7 +7,6 @@ import {
 import "./index.css";
 import Weather from './WeatherPage';
 import MainPage from './MainPage';
-import Navigation from '../Components/Navigation';
 
 class App extends React.Component {
     render() {
