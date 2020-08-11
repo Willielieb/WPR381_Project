@@ -15,7 +15,6 @@ function ToggleSwitch() {
     return (
         <>
             <div className="switch" >
-                <WeatherImg weatherType={'sunny'} />
                 <Grid component="label" container alignItems="center" spacing={0}>
                     <Grid item>°F</Grid>
                     <Grid item>
@@ -29,8 +28,9 @@ function ToggleSwitch() {
                     <Grid item>°C</Grid>
                 </Grid>
             </div>
-
-            <Condition checked={state.checked} />
+            <div className="inner-box">
+                <Condition checked={state.checked} />
+            </div>
         </>
     );
 }

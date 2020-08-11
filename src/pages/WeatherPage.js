@@ -1,7 +1,7 @@
 import React from "react";
 
 import ToggleSwitch from '../Components/Switch';
-
+import Navigation from '../Components/Navigation';
 class WeatherPage extends React.Component {
     render() {
         return (
@@ -9,9 +9,7 @@ class WeatherPage extends React.Component {
                 <header></header>
                 <main className="mainScreen">
                     <div className="item">
-                        <div className="inner-box">
-                            <ToggleSwitch />
-                        </div>
+                        <ToggleSwitch />
                     </div>
                 </main>
                 <footer></footer>

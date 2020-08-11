@@ -14,7 +14,6 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div id="root">
-                    <Navigation />
                     <Switch>
                         <Route path="/" component={MainPage} exact />
                         <Route path="/weather" component={Weather} />
