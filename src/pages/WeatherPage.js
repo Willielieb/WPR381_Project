@@ -13,7 +13,7 @@ class WeatherPage extends React.Component {
     //componentDidMount() {
     //     var url = new URLSearchParams(window.location.search);
     //     var zipcode = url.get('zipcode')
-    //     fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + zipcode + '&key=AIzaSyBoVVBAwxlYlpHNXdwLheRym2OHzWtncDg')
+    //     fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + zipcode + '&key={key}')
     //         .then(res => res.json())
     //         .then(
     //             (data) => {
