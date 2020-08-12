@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const MainPage = () => {
+    const [zipcode, setzipcode] = useState('');
     return (
         <>
             <header></header>
@@ -11,9 +12,9 @@ const MainPage = () => {
                     <p> Enter your zipcode </p>
                 </div>
                 <div className="inputContainer">
-                    <input type="text" className="textInput" id="textInput"></input>
+                    <input type="text" className="textInput" id="textInput" onChange={event => setzipcode(event.target.value)}></input>
                     <div>
-                        <NavLink to="/weather" className="btnSend">goto</NavLink>
+                        <NavLink to={'/weather?zipcode=' + zipcode} className="btnSend" >goto</NavLink>
                     </div>
                 </div>
             </main>
