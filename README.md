@@ -4,7 +4,7 @@
 
 In the project directory, you can run:
 
-###`npm run dev`
+### `npm run dev`
 use this command to run the node backend and the react front end
 
 ### `npm start`
