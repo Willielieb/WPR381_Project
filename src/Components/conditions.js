@@ -10,7 +10,6 @@ class Conditions extends Component {
             locationdata: []
         }
     }
-    //AIzaSyBoVVBAwxlYlpHNXdwLheRym2OHzWtncDg
     componentDidMount() {
         var url = new URLSearchParams(window.location.search);
         var zipcode = url.get('zipcode');
