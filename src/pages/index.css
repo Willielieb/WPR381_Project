@@ -13,23 +13,25 @@ body {
 	margin: 0;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	line-height: 1.5;
+	background-color: #f0f0f3;
 }
 .conditionbox {
-	text-align: center;
+	background: #f0f0f3;
+	box-shadow: -1px -1px 3px #ffffff, 1.5px 1.5px 3px rgba(174, 174, 192, 0.4);
+	width: 30rem;
+	margin: auto;
+	padding: 1rem;
+	border-radius: 15px;
 }
 .item {
-	background-color: #ffffff;
-	box-shadow: 1px 1px 2px rgba(228, 228, 228, 0.7),
-		-1px -1px 2px rgba(214, 214, 214, 0.4);
+	background: #f0f0f3;
+	box-shadow: -1px -1px 3px #ffffff, 1.5px 1.5px 3px rgba(174, 174, 192, 0.4);
 	border-radius: 25px;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding: 1rem;
 	position: relative;
 	top: 5rem;
 	left: 35rem;
-	width: 50rem;
+	width: 40rem;
 }
 ul {
 	list-style-type: none;
@@ -53,13 +55,7 @@ li a {
 li a:hover {
 	background-color: #111;
 }
-.item .inner-box {
-	background-color: #ffffff;
-	box-shadow: inset 1px 1px 2px #d8d8d8,
-		inset -1px -1px 1px rgba(218, 218, 218, 0.4);
-	border-radius: 25px;
-	padding-left: 3.5px;
-	padding-right: 3.5px;
-	padding-top: 3.5px;
-	color: #000;
+
+.switch {
+	margin: 1rem;
 }

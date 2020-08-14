@@ -71,20 +71,15 @@ class Conditions extends Component {
             var feelsliketemp = this.state.currentdata.feels_like;
             var windspeed = this.state.currentdata.wind_speed;
             var humidity = this.state.currentdata.humidity;
-            //var min = this.state.temperaturedata.temp_min;
-            //var max = this.state.temperaturedata.temp_max;
             var image = this.state.currentdata.weather[0].icon;
-            //var forecast = this.state.forecastdata.daily;
             return (
                 <>
                     <div className="conditionbox">
                         <img src={`http://openweathermap.org/img/wn/${image}.png`} className="conditionimage" alt={condition}></img>
                         <h5>{conditiondescription}</h5>
-                        <h3>Temp: {!this.props.checked ? ((temp * 9 / 5) + 32) : temp}{this.props.checked ? '°C' : '°F'}</h3>
-                        <h4>Feels like: {!this.props.checked ? ((feelsliketemp * 9 / 5) + 32) : feelsliketemp}{this.props.checked ? '°C' : '°F'}</h4>
+                        <h3>Temp: {!this.props.checked ? (Math.round(temp * 9 / 5) + 32) : Math.round(temp)}{this.props.checked ? '°C' : '°F'}</h3>
+                        <h4>Feels like: {!this.props.checked ? (Math.round(feelsliketemp * 9 / 5) + 32) : Math.round(feelsliketemp)}{this.props.checked ? '°C' : '°F'}</h4>
                         <h4>Humidity: {humidity}% </h4>
-                        {/* <h4>Min: {!this.props.checked ? ((min * 9 / 5) + 32) : min}{this.props.checked ? '°C ' : '°F '}
-                Max: {!this.props.checked ? ((max * 9 / 5) + 32) : max}{this.props.checked ? '°C' : '°F'}</h4> */}
                         <h4>Windspeed: {windspeed} m/s</h4>
                     </div>
                 </>
