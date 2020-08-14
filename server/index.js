@@ -6,12 +6,6 @@ const port = 3001;
 const app = express();
 const key = '891395a968d64d9998247fdec85650e6';
 var forecast;
-
-app.get('/weather/api', (req, res) => {
-    const queryObject = url.parse(req.url, true).query;
-    request(`https://api.openweathermap.org/data/2.5/onecall?lat=${queryObject.lat}&lon=${queryObject.lon}&exclude=hourly,daily&units=metric&appid=891395a968d64d9998247fdec85650e6`).then(
-        response=>{res.send(response)}).catch(err=>{console.log(err)})
-});
 app.get('/weather/api', (req, res) => {
     const queryObject = url.parse(req.url, true).query
     var query = {
@@ -24,6 +18,7 @@ app.get('/weather/api', (req, res) => {
             appid: key
         }
     }
+
     request(query)
         .then(response => res.send(response))
         .catch(err => console.log(err));
@@ -45,8 +40,8 @@ app.get('/weather/api', (req, res) => {
             "cloud":response.daily.clouds,
         };
 });
-app.get('/weather/forecast', (req, res) => {res.send(forecast);})
-});
+
+app.get('/weather/forecast', (req, res) => {res.send(forecast);});
 
 app.listen(port, () => {
     console.log(`listening at ${port}`)
