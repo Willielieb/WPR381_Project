@@ -47,7 +47,7 @@ class Conditions extends Component {
                     isLoaded: true,
                     locationdata: [data.lat, data.lon],
                     currentdata: data.current,
-                    forecastdata: data,
+                    forecastdata: data.daily,
                 });
             }, (error) => {
                 this.setState({
@@ -82,10 +82,47 @@ class Conditions extends Component {
                         <h4>Humidity: {humidity}% </h4>
                         <h4>Windspeed: {windspeed} m/s</h4>
                     </div>
+                    <Forecaster data={this.props.forecastdata}/>
                 </>
             )
         }
     }
+}
+function Forecaster() {
+    this.props.data.forEach(data => {
+        var forCondition = data.weather[0].main;
+        var forImage = data.weather[0].icon;
+        var forTemp = data.temp;
+        var forWindspeed = data.wind_speed;
+        var forHumidity = data.humidity;
+        return(
+            <>
+                    <div className="forecastConditionBox">
+                        <img src={`http://openweathermap.org/img/wn/${forImage}.png`} className="conditionimage" alt={forCondition}></img>
+                        <h3>Temp: {!this.props.checked ? (Math.round(forTemp * 9 / 5) + 32) : Math.round(forTemp)}{this.props.checked ? '°C' : '°F'}</h3>
+                        <h4>Humidity: {forHumidity}% </h4>
+                        <h4>Windspeed: {forWindspeed} m/s</h4>
+                    </div>
+            </>
+        ) 
+    });
+   /*  this.props.data.map((data) =>{
+        var forCondition = data.weather[0].main;
+        var forImage = data.weather[0].icon;
+        var forTemp = data.temp;
+        var forWindspeed = data.wind_speed;
+        var forHumidity = data.humidity;
+        return(
+            <>
+                    <div className="forecastConditionBox">
+                        <img src={`http://openweathermap.org/img/wn/${forImage}.png`} className="conditionimage" alt={forCondition}></img>
+                        <h3>Temp: {!this.props.checked ? (Math.round(forTemp * 9 / 5) + 32) : Math.round(forTemp)}{this.props.checked ? '°C' : '°F'}</h3>
+                        <h4>Humidity: {forHumidity}% </h4>
+                        <h4>Windspeed: {forWindspeed} m/s</h4>
+                    </div>
+            </>
+        )        
+    }) */
 }
 
 export default Conditions;
