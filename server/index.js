@@ -3,7 +3,7 @@ const url = require('url');
 const request = require('request-promise');
 const port = 3001;
 const app = express();
-const key = '891395a968d64d9998247fdec85650e6';
+const key = '';
 
 app.get('/weather/api', (req, res) => {
     //breaking down the url into query objects
