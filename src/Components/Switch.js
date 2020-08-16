@@ -2,7 +2,8 @@ import Toggle from '@material-ui/core/Switch';
 import React from "react";
 import Condition from './conditions';
 import { withStyles } from '@material-ui/core/styles';
-
+//this handles the state of the uniot conversion basically saying if the user wants the data in celcius of farenheit
+//this is a material UI component which is a "pretty checkbox" (a switch)
 function ToggleSwitch() {
     const [state, setState] = React.useState({
         checked: true,

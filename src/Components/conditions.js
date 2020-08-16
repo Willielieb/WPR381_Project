@@ -1,63 +1,61 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Map from './map';
+
+//This is the main component page where the weather data and the map gets shown
+//it uses an api from the backend to get the weather data from open weather map
+//it uses the google geocode api to get the coordinates from a given zipcode
+//it lists the data in a useable format 
+//it handles the unit conversion from celcius to farentheit
+//this handles the display
+
+//*THINGS TO TAKE NOTE*//
+//this uses the google api suite, google api's are a paid service.
+
 class Conditions extends Component {
+    //sets the state for the component
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            isLoaded: false,
-            currentdata: {},
-            forecastdata: [],
-            locationdata: []
+            error: null, //if the process has an error this will have a value
+            isLoaded: false, //this will allow the page to show loading until the data is recieved, then it is set to true
+            currentdata: {}, //this is the current weather data (at the time of the request)
+            forecastdata: [], //this the forecast for the week 
+            locationdata: [] //this is the location of the request
         }
     }
     componentDidMount() {
-        var url = new URLSearchParams(window.location.search);
+        var url = new URLSearchParams(window.location.search); //gets the zipcode from the url 
         var zipcode = url.get('zipcode');
-        // fetch(`https://maps.googleapis.com/maps/api/geocode/json?key=&components=postal_code:${zipcode}|country:ZA`)
-        //     .then(res => res.json())
-        //     .then(
-        //         (data) => {
-        //             fetch(`/weather/api?lon=${data.results[0].geometry.location.lng}&lat=${data.results[0].geometry.location.lat}`)
-        //                 .then(response => response.json())
-        //                 .then(data => {
-        //                     this.setState({
-        //                         isLoaded: true,
-        //                         locationdata: [data.lat, data.lon],
-        //                         currentdata: data.current,
-        //                         forecastdata: data,
-        //                     });
-        //                 }, (error) => {
-        //                     this.setState({
-        //                         isLoaded: true,
-        //                         error
-        //                     });
-        //                 });
-        //         },
-        //         (error) => {
-        //             this.setState({
-        //                 isLoaded: true,
-        //                 error
-        //             });
-        //         }
-        //     )
-        fetch(`/weather/api?lon=11.11&lat=22.22`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    isLoaded: true,
-                    locationdata: [data.lat, data.lon],
-                    currentdata: data.current,
-                    forecastdata: data.daily,
-                });
-            }, (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            });
+        //gets the latitude and longtitude from the zipcode in south-africa
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBoVVBAwxlYlpHNXdwLheRym2OHzWtncDg&components=postal_code:${zipcode}|country:ZA`)
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    //gets the weather data using the lat and lng from the above fetch
+                    fetch(`/weather/api?lon=${data.results[0].geometry.location.lng}&lat=${data.results[0].geometry.location.lat}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.setState({
+                                isLoaded: true,
+                                locationdata: [data.lat, data.lon],
+                                currentdata: data.current,
+                                forecastdata: data.daily,
+                            });
+                        }, (error) => {
+                            this.setState({
+                                isLoaded: true,
+                                error
+                            });
+                        });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
-    //*TODO*
-    //make a card for each item in daily forcast data
     render() {
         const { error, isLoaded } = this.state;
         if (error) {
@@ -81,92 +79,31 @@ class Conditions extends Component {
                         <h4>Feels like: {!this.props.checked ? (Math.round(feelsliketemp * 9 / 5) + 32) : Math.round(feelsliketemp)}{this.props.checked ? '°C' : '°F'}</h4>
                         <h4>Humidity: {humidity}% </h4>
                         <h4>Windspeed: {windspeed} m/s</h4>
+                        <div>
+                            {
+                                this.state.forecastdata.map(data => { //maps through the array to get the individual days' forecast
+                                    //var date = new Date(data.dt).toString();
+                                    var forCondition = data.weather[0].main;
+                                    var forImage = data.weather[0].icon;
+                                    var forTemp = data.temp.day;
+                                    var forHumidity = data.humidity;
+                                    return (
+                                        <div key={data.humidity + 2} className="forecastConditionBox">
+                                            {/* <h5>{date}</h5> */}
+                                            <img key={data.humidity * 2} src={`http://openweathermap.org/img/wn/${forImage}.png`} className="conditionimage" alt={forCondition}></img>
+                                            <h4 key={data.humidity - 2}>Temp: {!this.props.checked ? (Math.round(forTemp * 9 / 5) + 32) : Math.round(forTemp)}{this.props.checked ? '°C' : '°F'}</h4>
+                                            <h5 key={data.humidity / 2}>Humidity: {forHumidity}% </h5>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div >
                     </div>
-                    <Forecaster data={this.props.forecastdata}/>
+                    <div classname="mapbox"><Map location={this.state.locationdata} /></div>
                 </>
             )
         }
     }
-	//Here is code that is suspected to return a map. using coordinates.
-	
-	//npm install --save google-map-react
-import React, { Component } from "react";
-import { Map, GoogleApiWrapper, Marker  } from 'google-maps-react';
-
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
-
-class Demo1 extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "React"
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <Map
-          google={this.props.google}
-          zoom={14}
-          style={mapStyles}
-          initialCenter={{
-            lat: YOUR_LATITUDE,
-            lng: YOUR_LONGITUDE
-          }}
-        >
-         <Marker
-          onClick={this.onMarkerClick}
-          name={'This is test name'}
-        />
-        </Map>
-      </div>
-    );
-  }
-}
-
-export default GoogleApiWrapper({
-  apiKey: 'API_KEY'
-})(Demo1);
-}
-function Forecaster() {
-    this.props.data.forEach(data => {
-        var forCondition = data.weather[0].main;
-        var forImage = data.weather[0].icon;
-        var forTemp = data.temp;
-        var forWindspeed = data.wind_speed;
-        var forHumidity = data.humidity;
-        return(
-            <>
-                    <div className="forecastConditionBox">
-                        <img src={`http://openweathermap.org/img/wn/${forImage}.png`} className="conditionimage" alt={forCondition}></img>
-                        <h3>Temp: {!this.props.checked ? (Math.round(forTemp * 9 / 5) + 32) : Math.round(forTemp)}{this.props.checked ? '°C' : '°F'}</h3>
-                        <h4>Humidity: {forHumidity}% </h4>
-                        <h4>Windspeed: {forWindspeed} m/s</h4>
-                    </div>
-            </>
-        ) 
-    });
-   /*  this.props.data.map((data) =>{
-        var forCondition = data.weather[0].main;
-        var forImage = data.weather[0].icon;
-        var forTemp = data.temp;
-        var forWindspeed = data.wind_speed;
-        var forHumidity = data.humidity;
-        return(
-            <>
-                    <div className="forecastConditionBox">
-                        <img src={`http://openweathermap.org/img/wn/${forImage}.png`} className="conditionimage" alt={forCondition}></img>
-                        <h3>Temp: {!this.props.checked ? (Math.round(forTemp * 9 / 5) + 32) : Math.round(forTemp)}{this.props.checked ? '°C' : '°F'}</h3>
-                        <h4>Humidity: {forHumidity}% </h4>
-                        <h4>Windspeed: {forWindspeed} m/s</h4>
-                    </div>
-            </>
-        )        
-    }) */
 }
 
 export default Conditions;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+//this is the landing page
 const MainPage = () => {
     const [zipcode, setzipcode] = useState('');
     return (
@@ -14,7 +14,7 @@ const MainPage = () => {
                 <div className="inputContainer">
                     <input type="text" className="textInput" id="textInput" onChange={event => setzipcode(event.target.value)}></input>
                     <div>
-                        <NavLink to={'/weather?zipcode=' + zipcode} className="btnSend" >goto</NavLink>
+                        <NavLink to={'/weather?zipcode=' + zipcode} className="btnSend" >Get forecast</NavLink>
                     </div>
                 </div>
             </main>

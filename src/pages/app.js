@@ -7,7 +7,7 @@ import {
 import "./index.css";
 import Weather from './WeatherPage';
 import MainPage from './MainPage';
-
+//this handles the routing for the application
 class App extends React.Component {
     render() {
         return (

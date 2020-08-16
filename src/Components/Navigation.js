@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NavLink } from 'react-router-dom';
-
+//this handles the navingation on the nav bar
 const Navigation = () => {
     return (
         <nav>
