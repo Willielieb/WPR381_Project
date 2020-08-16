@@ -27,7 +27,7 @@ class Conditions extends Component {
         var url = new URLSearchParams(window.location.search); //gets the zipcode from the url 
         var zipcode = url.get('zipcode');
         //gets the latitude and longtitude from the zipcode in south-africa
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBoVVBAwxlYlpHNXdwLheRym2OHzWtncDg&components=postal_code:${zipcode}|country:ZA`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?key=&components=postal_code:${zipcode}|country:ZA`)
             .then(res => res.json())
             .then(
                 (data) => {
