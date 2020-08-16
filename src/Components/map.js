@@ -30,4 +30,4 @@ class Mapper extends Component {
     }
 }
 
-export default GoogleApiWrapper({ apiKey: 'AIzaSyBoVVBAwxlYlpHNXdwLheRym2OHzWtncDg' })(Mapper);
+export default GoogleApiWrapper({ apiKey: '' })(Mapper);
